@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
     
     tools {
         maven 'maven3'
@@ -20,6 +24,23 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-MavenProject -Dsonar.projectKey=MavenProject -Dsonar.java.binaries=target
+                        echo $SCANNER_HOME
+                    '''
+                }
+            }
+        }
+        stage('SonarQuality') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
         stage('Package') {
