@@ -8,6 +8,7 @@ pipeline {
     tools {
         maven 'maven3'
         jdk 'jdk11'
+        jdk 'jdk17'
     }
 
     stages {
@@ -30,7 +31,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''
-                        $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-MavenProject -Dsonar.projectKey=MavenProject -Dsonar.java.binaries=.
+                        $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-MavenProject -Dsonar.projectKey=MavenProject -Dsonar.java.binaries=target
                         echo $SCANNER_HOME
                     '''
                 }
