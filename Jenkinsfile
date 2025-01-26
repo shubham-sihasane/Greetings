@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''
-                        $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-MavenProject -Dsonar.projectKey=MavenProject -Dsonar.java.binaries=target
+                        $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName-MavenProject -Dsonar.projectKey=MavenProject -Dsonar.java.binaries=.
                         echo $SCANNER_HOME
                     '''
                 }
