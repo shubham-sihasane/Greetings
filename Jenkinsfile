@@ -7,11 +7,11 @@ pipeline {
     }
 
     stages {
-        stage('Git Checkout') {
-            steps {
-                git 'https://github.com/shubham-sihasane/Greetings.git'
-            }
-        }
+        // stage('Git Checkout') {
+        //     steps {
+        //         git 'https://github.com/shubham-sihasane/Greetings.git'
+        //     }
+        // }
         stage('Compile') {
             steps {
                 sh 'mvn compile'
